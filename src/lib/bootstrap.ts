@@ -443,21 +443,20 @@ export function upsertOfflineFeedPost(input: {
 
   const nextId = input.id ?? OFFLINE_FEED_POSTS.reduce((max, item) => Math.max(max, item.id), 0) + 1;
   const now = new Date().toISOString();
-  const record = {
+  const record: FeedPostRecord = {
     id: nextId,
-    classCode: normalizedClass,
+    classCode: normalizedClass as FeedPostRecord['classCode'],
     title: normalizedTitle,
     caption: normalizedCaption,
     mediaUrl: normalizedMediaUrl,
-    mediaType: (input.mediaType || 'PHOTO') as 'PHOTO' | 'POSTER' | 'ANNOUNCEMENT',
-    status: input.status || 'APPROVED',
+    mediaType: (input.mediaType || 'PHOTO') as FeedPostRecord['mediaType'],
+    status: (input.status || 'APPROVED') as FeedPostRecord['status'],
     rejectionReason: input.rejectionReason ?? null,
     submittedByEmail: input.submittedByEmail ?? null,
     submittedByName: normalizedName,
     reviewedByEmail: input.reviewedByEmail ?? null,
     reviewedAt: input.reviewedAt ?? null,
     createdAt: now,
-    updatedAt: now,
   };
 
   const index = OFFLINE_FEED_POSTS.findIndex((item) => item.id === nextId);
