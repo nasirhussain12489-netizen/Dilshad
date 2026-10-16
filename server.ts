@@ -81,7 +81,7 @@ import { isAiAssistantEnabled } from './src/types.ts';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-const app = express();
+export const app = express();
 const PORT = 3000;
 
 app.use(express.json({ limit: '20mb' }));
@@ -4457,4 +4457,6 @@ async function startServer() {
   process.on('SIGINT', cleanup);
 }
 
-startServer();
+if (!process.env.VERCEL) {
+  void startServer();
+}

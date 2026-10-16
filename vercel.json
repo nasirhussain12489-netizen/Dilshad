@@ -4,13 +4,16 @@
   "outputDirectory": "dist",
   "functions": {
     "api/index.ts": {
-      "includeFiles": "src/assets/images/**"
+      "includeFiles": [
+        "src/assets/images/**",
+        "dist/**"
+      ]
     }
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api?path=/api/$1"
+      "destination": "/api/index"
     },
     {
       "source": "/(.*)",
